@@ -1,6 +1,7 @@
 @LoginTests @BaseFunctionality @SmokeTesting
 Feature: Login Functionality
 
+  @TC01
   Scenario: Failed login with empty credentials
 
 
@@ -11,7 +12,7 @@ Feature: Login Functionality
     And I click the login button
     Then I should see an error message "Epic sadface: Username is required"
 
-
+  @TC02
   Scenario: Failed login with empty password
     Given I am on the login page
     When I enter the username "standard_user"
@@ -20,6 +21,8 @@ Feature: Login Functionality
     And I click the login button
     Then I should see an error message "Epic sadface: Password is required"
 
+
+  @TC03
   Scenario: Successful login with valid credentials and valid Title
     Given I am on the login page
     When I enter the username "standard_user" and the password "secret_sauce"

@@ -16,6 +16,11 @@ public class LoginPage {
     WebElement loginButton;
     Logger log = LogManager.getLogger(LoginPage.class);
 
+    private static final By USERNAME_FIELD = By.xpath("//*[@id=\"user-name\"]");
+    private static final By PASSWORD_FIELD = By.xpath("//*[@id=\"password\"]");
+    private static final By LOGIN_BUTTON = By.xpath("//*[@id=\"login-button\"]");
+    private static final By ERROR_MESSAGE = By.cssSelector("h3[data-test='error']");
+    private static final By TITLE_ELEMENT = By.cssSelector("div.app_logo");
     public LoginPage(WebDriver driver){
         this.driver = driver;
     }
@@ -28,9 +33,9 @@ public class LoginPage {
     private void waitForElements() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         log.info("Waiting for login elements to be visible");
-        usernameElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("user-name")));
-        passwordElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("password")));
-        loginButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("login-button")));
+        usernameElement = wait.until(ExpectedConditions.visibilityOfElementLocated(USERNAME_FIELD));
+        passwordElement = wait.until(ExpectedConditions.visibilityOfElementLocated(PASSWORD_FIELD));
+        loginButton = wait.until(ExpectedConditions.elementToBeClickable(LOGIN_BUTTON));
     }
 
     public void performLogin(String username, String password){
@@ -38,8 +43,6 @@ public class LoginPage {
         usernameElement.sendKeys(username);
         log.info("Performing login with password: {}", password);
         passwordElement.sendKeys(password);
-        log.info("Performing login button");
-        loginButton.click();
     }
 
     public void sendUsername(String username) {
@@ -58,11 +61,8 @@ public class LoginPage {
     }
 
     public String getErrorMessage() {
-        WebDriverWait wait = new WebDriverWait(driver, java.time.Duration.ofSeconds(5));
-        WebElement error = wait.until(
-                org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated(
-                        org.openqa.selenium.By.xpath("//*[@id=\"login_button_container\"]/div/form/div[3]/h3"))
-        );
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement error = wait.until(ExpectedConditions.visibilityOfElementLocated(ERROR_MESSAGE));
         return error.getText().trim();
     }
 
@@ -78,7 +78,7 @@ public class LoginPage {
 
     public String getTitle() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement elementTitle = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"header_container\"]/div[1]/div[2]/div")));
-        return  elementTitle.getText().trim();
+        WebElement elementTitle = wait.until(ExpectedConditions.visibilityOfElementLocated(TITLE_ELEMENT));
+        return elementTitle.getText().trim();
     }
 }

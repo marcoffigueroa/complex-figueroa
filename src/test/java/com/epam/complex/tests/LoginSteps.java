@@ -1,7 +1,6 @@
 package com.epam.complex.tests;
 
 import com.epam.complex.models.LoginPage;
-import com.epam.complex.tests.Hooks;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -18,16 +17,17 @@ public class LoginSteps {
     @Given("I am on the login page")
     public void navigateToLoginPage() {
         log.info("Navigating to login page");
-        loginPage = new LoginPage(Hooks.getDriver());
+        loginPage = new LoginPage(Hooks.driver);
         loginPage.navigateToLogin();
         log.info("Successfully navigated to login page");
     }
 
     @When("I enter the username {string} and the password {string}")
     public void performFullLogin(String username, String password) {
-        log.info("Attempting full login with username: {}", username);
+        // No hacer click aquí; el escenario clickea después si corresponde
+        log.info("Typing credentials (without clicking login)");
         loginPage.performLogin(username, password);
-        log.info("Login attempt completed");
+        log.info("Credentials typed");
     }
 
     @When("I enter the username {string}")
@@ -70,7 +70,7 @@ public class LoginSteps {
         log.info("Validating page title - Swag Labs");
         String actualTitle = loginPage.getTitle();
         log.debug("Actual title: {}", actualTitle);
-        assertThat("Title does not match", actualTitle, equalTo("Swag Labs".trim()));
+        assertThat("Title does not match", actualTitle, equalTo("Swag Labs"));
         log.info("Title validation passed");
     }
 
