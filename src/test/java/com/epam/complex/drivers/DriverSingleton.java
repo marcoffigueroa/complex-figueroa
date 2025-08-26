@@ -15,10 +15,10 @@ public class DriverSingleton {
     private DriverSingleton() {
     }
 
-    public static WebDriver getDriver(String browser) {
+    public static WebDriver getDriver() {
         if (driver == null) {
             log.error("Driver is null");
-            browser = browser.trim().toLowerCase();
+            String browser = System.getProperty("browser", "chrome").trim().toLowerCase();
             log.info("Selected browser: {}", browser);
             if (browser.equalsIgnoreCase("chrome")) {
                 WebDriverFactory factory = new ChromeDriverFactory();

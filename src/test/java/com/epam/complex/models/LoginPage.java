@@ -66,7 +66,7 @@ public class LoginPage {
         return error.getText().trim();
     }
 
-    public void clearusername() {
+    public void clearUsername() {
         log.info("Clearing username field");
         usernameElement.clear();
     }
