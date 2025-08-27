@@ -13,7 +13,6 @@ public class ChromeDriverFactory implements WebDriverFactory {
     public WebDriver createDriver() {
         log.debug("Setting up ChromeDriver");
         WebDriverManager.chromedriver().setup();
-        // Usar el Adapter en vez del driver directo
         return new ChromeDriverAdapter();
     }
 }

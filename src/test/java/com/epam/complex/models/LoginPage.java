@@ -71,14 +71,12 @@ public class LoginPage {
 
     public void clearUsername() {
         log.info("Clearing username field");
-        // Corrected: Use the class member variable `usernameElement`
         forceClear(usernameElement);
         log.info("Username field cleared");
     }
 
     public void clearPassword() {
         log.info("Clearing password field");
-        // Corrected: Use the class member variable `passwordElement`
         forceClear(passwordElement);
         log.info("Password field cleared");
     }

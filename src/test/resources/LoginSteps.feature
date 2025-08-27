@@ -21,7 +21,6 @@ Feature: Login Functionality
     And I click the login button
     Then I should see an error message "Epic sadface: Password is required"
 
-
   @TC03
   Scenario Outline: Successful login with valid credentials and valid Title
     Given I am on the login page

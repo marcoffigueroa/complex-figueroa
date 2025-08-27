@@ -13,7 +13,6 @@ public class EdgeDriverFactory implements WebDriverFactory{
         log.debug("Setting up EdgeDriver");
         String edgeDriverPath = System.getProperty("user.dir") + "/src/test/resources/drivers/msedgedriver.exe";
         System.setProperty("webdriver.edge.driver", edgeDriverPath);
-        // Usar el Adapter en vez del driver directo
         return new EdgeDriverAdapter();
     }
 }

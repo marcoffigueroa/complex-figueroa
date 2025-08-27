@@ -36,7 +36,7 @@ public class DriverSingleton {
         driver = factory.createDriver();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.manage().window().maximize();
-        // Decorate the driver with logging and screenshot
+        //Decorators
         driver = new LoggingWebDriverDecorator(driver);
         driver = new ScreenshotWebDriverDecorator(driver);
         return driver;

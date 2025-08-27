@@ -93,36 +93,6 @@ The project follows the BDD (Behavior Driven Development) approach using Cucumbe
 ## Logging with Log4j
 - **Configuration:** Log4j is integrated throughout the framework to log relevant information during test execution.
 - **Where used:** Classes such as `DriverSingleton`, `Hooks`, `LoginSteps`, and the decorators use Log4j for logging.
-- **Benefit:** Enables tracking of execution flow, debugging, and auditing of test actions.
-
----
-
-## Relevant Folder Structure
-```
-src/test/java/com/epam/complex/
-  drivers/
-    DriverSingleton.java
-    WebDriverFactory.java
-    EdgeDriverFactory.java
-    ChromeDriverFactory.java
-    adapters/
-      EdgeDriverAdapter.java
-      ChromeDriverAdapter.java
-    decorator/
-      LoggingWebDriverDecorator.java
-      ScreenshotWebDriverDecorator.java
-  models/
-    LoginPage.java
-  runners/
-    LoginRunner.java
-  tests/
-    Hooks.java
-    LoginSteps.java
-src/test/resources/
-  LoginSteps.feature
-  drivers/
-    msedgedriver.exe
-```
 
 ---
 
@@ -130,11 +100,7 @@ src/test/resources/
 
 1. Set the desired browser with the system property `browser` (default: edge):
    - From terminal: `mvn test -Dbrowser=chrome`
+   - From terminal: `mvn test -Dbrowser=edge` (explicit for Edge)
 2. Run the `LoginRunner.java` from your IDE or with Maven:
    - `mvn test`
 3. Check the generated logs and screenshots in the corresponding folder.
-
----
-
-## Credits
-Developed by Marco Figueroa for design patterns and test automation practice in Java.
