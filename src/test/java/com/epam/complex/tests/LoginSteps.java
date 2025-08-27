@@ -1,11 +1,14 @@
 package com.epam.complex.tests;
 
+import com.epam.complex.drivers.DriverSingleton;
 import com.epam.complex.models.LoginPage;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -17,14 +20,13 @@ public class LoginSteps {
     @Given("I am on the login page")
     public void navigateToLoginPage() {
         log.info("Navigating to login page");
-        loginPage = new LoginPage(Hooks.driver);
+        loginPage = new LoginPage(DriverSingleton.getDriver());
         loginPage.navigateToLogin();
         log.info("Successfully navigated to login page");
     }
 
     @When("I enter the username {string} and the password {string}")
     public void performFullLogin(String username, String password) {
-        // No hacer click aquí; el escenario clickea después si corresponde
         log.info("Typing credentials (without clicking login)");
         loginPage.performLogin(username, password);
         log.info("Credentials typed");

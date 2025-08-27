@@ -5,46 +5,39 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.edge.EdgeDriver;
 import java.time.Duration;
 
 public class DriverSingleton {
-    private static WebDriver driver;
     private static final Logger log = LogManager.getLogger(DriverSingleton.class);
+    private static final ThreadLocal<WebDriver> DRIVER = new ThreadLocal<>();
 
-    private DriverSingleton() {
-    }
+
+    private DriverSingleton() {}
 
     public static WebDriver getDriver() {
-        if (driver == null) {
-            log.info("Driver is null");
-            String browser = System.getProperty("browser", "edge").trim().toLowerCase();
-            log.info("Selected browser: {}", browser);
+        WebDriver existing = DRIVER.get();
+        if (existing == null) {
+            String browser = System.getProperty("browser", "chrome").toLowerCase();
+            WebDriver wd;
             switch (browser) {
-                case "chrome" -> {
-                    WebDriverFactory factory = new ChromeDriverFactory();
-                    log.debug("ChromeDriverFactory creado");
-                    driver = factory.createDriver();
-                }
-                case "edge" -> {
-                    WebDriverFactory factory = new EdgeDriverFactory();
-                    log.debug("EdgeDriverFactory creado");
-                    driver = factory.createDriver();
-                }
-                default -> throw new IllegalArgumentException("Navegador no válido: " + browser);
+                case "edge":
+                    wd = new EdgeDriverAdapter();
+                    break;
+                default:
+                    wd = new ChromeDriver();
             }
-
-            driver.manage().window().maximize();
-            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-            log.info("Driver inicializado correctamente");
+            wd.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+            wd.manage().window().maximize();
+            DRIVER.set(wd);
         }
-        return driver;
+        return DRIVER.get();
     }
 
     public static void closeDriver() {
-        if (driver != null) {
-            driver.quit();
-            driver = null;
+        WebDriver wd = DRIVER.get();
+        if (wd != null) {
+            wd.quit();
+            DRIVER.remove();
         }
     }
 }
