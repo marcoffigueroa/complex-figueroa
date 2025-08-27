@@ -1,4 +1,4 @@
-package com.epam.complex.drivers;
+package com.epam.complex.drivers.adapters;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;

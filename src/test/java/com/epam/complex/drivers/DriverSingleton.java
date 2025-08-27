@@ -17,30 +17,28 @@ public class DriverSingleton {
 
     public static WebDriver getDriver() {
         WebDriver driver = null;
-        if (driver == null) {
-            String browserName = System.getProperty("browser", "edge").toLowerCase();
-            log.info("Browser selected: {}", browserName);
+        String browserName = System.getProperty("browser", "edge").toLowerCase();
+        log.info("Browser selected: {}", browserName);
 
-            WebDriverFactory factory;
+        WebDriverFactory factory;
 
-            if ("edge".equals(browserName)) {
-                log.info("Initializing Edge browser");
-                factory = new EdgeDriverFactory();
-            } else if ("chrome".equals(browserName)) {
-                log.info("Initializing Firefox browser");
-                factory = new ChromeDriverFactory();
-            } else {
-                log.info("Browser not recognized");
-                throw new IllegalArgumentException("Browser not supported: " + browserName);
-            }
-
-            driver = factory.createDriver();
-            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-            driver.manage().window().maximize();
-            // Decorate the driver with logging and screenshot
-            driver = new LoggingWebDriverDecorator(driver);
-            driver = new ScreenshotWebDriverDecorator(driver);
+        if ("edge".equals(browserName)) {
+            log.info("Initializing Edge browser");
+            factory = new EdgeDriverFactory();
+        } else if ("chrome".equals(browserName)) {
+            log.info("Initializing Firefox browser");
+            factory = new ChromeDriverFactory();
+        } else {
+            log.info("Browser not recognized");
+            throw new IllegalArgumentException("Browser not supported: " + browserName);
         }
+
+        driver = factory.createDriver();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.manage().window().maximize();
+        // Decorate the driver with logging and screenshot
+        driver = new LoggingWebDriverDecorator(driver);
+        driver = new ScreenshotWebDriverDecorator(driver);
         return driver;
     }
 

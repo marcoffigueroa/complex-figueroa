@@ -1,10 +1,10 @@
 package com.epam.complex.drivers;
 
+import com.epam.complex.drivers.adapters.ChromeDriverAdapter;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 public class ChromeDriverFactory implements WebDriverFactory {
     private static final Logger log = LogManager.getLogger(ChromeDriverFactory.class);
@@ -13,8 +13,7 @@ public class ChromeDriverFactory implements WebDriverFactory {
     public WebDriver createDriver() {
         log.debug("Setting up ChromeDriver");
         WebDriverManager.chromedriver().setup();
-        ChromeDriver driver = new ChromeDriver();
-        log.info("ChromeDriver created");
-        return driver;
+        // Usar el Adapter en vez del driver directo
+        return new ChromeDriverAdapter();
     }
 }

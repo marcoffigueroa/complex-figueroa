@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CopilotDiffPersistence">
+    <option name="pendingDiffs">
+      <map>
+        <entry key="$PROJECT_DIR$/src/test/java/com/epam/complex/drivers/ChromeDriverAdapter.java">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/src/test/java/com/epam/complex/drivers/ChromeDriverAdapter.java" />
+              <option name="updatedContent" value="package com.epam.complex.drivers;&#10;&#10;import org.openqa.selenium.WebDriver;&#10;import org.openqa.selenium.chrome.ChromeDriver;&#10;import org.openqa.selenium.*;&#10;import java.util.Set;&#10;import java.util.List;&#10;import java.time.Duration;&#10;&#10;public class ChromeDriverAdapter implements WebDriver {&#10;    private final ChromeDriver chromeDriver;&#10;&#10;    public ChromeDriverAdapter() {&#10;        this.chromeDriver = new ChromeDriver();&#10;        this.chromeDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));&#10;        this.chromeDriver.manage().window().maximize();&#10;    }&#10;&#10;    @Override&#10;    public void get(String url) {&#10;        chromeDriver.get(url);&#10;    }&#10;&#10;    @Override&#10;    public String getCurrentUrl() {&#10;        return chromeDriver.getCurrentUrl();&#10;    }&#10;&#10;    @Override&#10;    public String getTitle() {&#10;        return chromeDriver.getTitle();&#10;    }&#10;&#10;    @Override&#10;    public List&lt;WebElement&gt; findElements(By by) {&#10;        return chromeDriver.findElements(by);&#10;    }&#10;&#10;    @Override&#10;    public WebElement findElement(By by) {&#10;        return chromeDriver.findElement(by);&#10;    }&#10;&#10;    @Override&#10;    public String getPageSource() {&#10;        return chromeDriver.getPageSource();&#10;    }&#10;&#10;    @Override&#10;    public void close() {&#10;        chromeDriver.close();&#10;    }&#10;&#10;    @Override&#10;    public void quit() {&#10;        chromeDriver.quit();&#10;    }&#10;&#10;    @Override&#10;    public Set&lt;String&gt; getWindowHandles() {&#10;        return chromeDriver.getWindowHandles();&#10;    }&#10;&#10;    @Override&#10;    public String getWindowHandle() {&#10;        return chromeDriver.getWindowHandle();&#10;    }&#10;&#10;    @Override&#10;    public TargetLocator switchTo() {&#10;        return chromeDriver.switchTo();&#10;    }&#10;&#10;    @Override&#10;    public Navigation navigate() {&#10;        return chromeDriver.navigate();&#10;    }&#10;&#10;    @Override&#10;    public Options manage() {&#10;        return chromeDriver.manage();&#10;    }&#10;}&#10;" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
