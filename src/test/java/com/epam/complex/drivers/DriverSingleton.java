@@ -15,22 +15,29 @@ public class DriverSingleton {
     private DriverSingleton() {}
 
     public static WebDriver getDriver() {
-        WebDriver existing = DRIVER.get();
-        if (existing == null) {
-            String browser = System.getProperty("browser", "chrome").toLowerCase();
-            WebDriver wd;
-            switch (browser) {
-                case "edge":
-                    wd = new EdgeDriverAdapter();
-                    break;
-                default:
-                    wd = new ChromeDriver();
+        WebDriver driver = null;
+        if (driver == null) {
+            String browserName = System.getProperty("browser", "edge").toLowerCase();
+            log.info("Browser selected: {}", browserName);
+
+            WebDriverFactory factory;
+
+            if ("edge".equals(browserName)) {
+                log.info("Initializing Edge browser");
+                factory = new EdgeDriverFactory();
+            } else if ("chrome".equals(browserName)) {
+                log.info("Initializing Firefox browser");
+                factory = new ChromeDriverFactory();
+            } else {
+                log.info("Browser not recognized");
+                throw new IllegalArgumentException("Browser not supported: " + browserName);
             }
-            wd.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-            wd.manage().window().maximize();
-            DRIVER.set(wd);
+
+            driver = factory.createDriver();
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+            driver.manage().window().maximize();
         }
-        return DRIVER.get();
+        return driver;
     }
 
     public static void closeDriver() {

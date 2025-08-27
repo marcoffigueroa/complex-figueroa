@@ -3,10 +3,12 @@ package com.epam.complex.models;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.time.Duration;
 
 public class LoginPage {
@@ -21,11 +23,12 @@ public class LoginPage {
     private static final By LOGIN_BUTTON = By.xpath("//*[@id=\"login-button\"]");
     private static final By ERROR_MESSAGE = By.cssSelector("h3[data-test='error']");
     private static final By TITLE_ELEMENT = By.cssSelector("div.app_logo");
-    public LoginPage(WebDriver driver){
+
+    public LoginPage(WebDriver driver) {
         this.driver = driver;
     }
 
-    public void navigateToLogin(){
+    public void navigateToLogin() {
         driver.get("https://www.saucedemo.com/");
         waitForElements();
     }
@@ -38,7 +41,7 @@ public class LoginPage {
         loginButton = wait.until(ExpectedConditions.elementToBeClickable(LOGIN_BUTTON));
     }
 
-    public void performLogin(String username, String password){
+    public void performLogin(String username, String password) {
         log.info("Performing login with user: {}", username);
         usernameElement.sendKeys(username);
         log.info("Performing login with password: {}", password);
@@ -68,12 +71,25 @@ public class LoginPage {
 
     public void clearUsername() {
         log.info("Clearing username field");
-        usernameElement.clear();
+        // Corrected: Use the class member variable `usernameElement`
+        forceClear(usernameElement);
+        log.info("Username field cleared");
     }
 
     public void clearPassword() {
         log.info("Clearing password field");
-        passwordElement.clear();
+        // Corrected: Use the class member variable `passwordElement`
+        forceClear(passwordElement);
+        log.info("Password field cleared");
+    }
+
+    private void forceClear(WebElement el) {
+        el.click();
+        el.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+        el.sendKeys(Keys.DELETE);
+
+        new WebDriverWait(driver, Duration.ofSeconds(2))
+                .until(d -> "".equals(el.getAttribute("value")));
     }
 
     public String getTitle() {
