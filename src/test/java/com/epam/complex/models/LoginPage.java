@@ -13,9 +13,6 @@ import java.time.Duration;
 
 public class LoginPage {
     WebDriver driver;
-    WebElement usernameElement;
-    WebElement passwordElement;
-    WebElement loginButton;
     Logger log = LogManager.getLogger(LoginPage.class);
 
     private static final By USERNAME_FIELD = By.xpath("//*[@id=\"user-name\"]");
@@ -30,36 +27,32 @@ public class LoginPage {
 
     public void navigateToLogin() {
         driver.get("https://www.saucedemo.com/");
-        waitForElements();
-    }
-
-    private void waitForElements() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        log.info("Waiting for login elements to be visible");
-        usernameElement = wait.until(ExpectedConditions.visibilityOfElementLocated(USERNAME_FIELD));
-        passwordElement = wait.until(ExpectedConditions.visibilityOfElementLocated(PASSWORD_FIELD));
-        loginButton = wait.until(ExpectedConditions.elementToBeClickable(LOGIN_BUTTON));
     }
 
     public void performLogin(String username, String password) {
         log.info("Performing login with user: {}", username);
+        WebElement usernameElement = waitForUsername();
         usernameElement.sendKeys(username);
         log.info("Performing login with password: {}", password);
+        WebElement passwordElement = waitForPassword();
         passwordElement.sendKeys(password);
     }
 
     public void sendUsername(String username) {
         log.info("Sending username: {}", username);
+        WebElement usernameElement = waitForUsername();
         usernameElement.sendKeys(username);
     }
 
     public void sendPassword(String password) {
         log.info("Sending password: {}", password);
+        WebElement passwordElement = waitForPassword();
         passwordElement.sendKeys(password);
     }
 
     public void clickLoginButton() {
         log.info("Clicking login button");
+        WebElement loginButton = waitForLoginButton();
         loginButton.click();
     }
 
@@ -71,12 +64,14 @@ public class LoginPage {
 
     public void clearUsername() {
         log.info("Clearing username field");
+        WebElement usernameElement = waitForUsername();
         forceClear(usernameElement);
         log.info("Username field cleared");
     }
 
     public void clearPassword() {
         log.info("Clearing password field");
+        WebElement passwordElement = waitForPassword();
         forceClear(passwordElement);
         log.info("Password field cleared");
     }
@@ -94,5 +89,24 @@ public class LoginPage {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement elementTitle = wait.until(ExpectedConditions.visibilityOfElementLocated(TITLE_ELEMENT));
         return elementTitle.getText().trim();
+    }
+
+    // Métodos privados para esperar cada elemento
+    private WebElement waitForUsername() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        log.info("Waiting for username element to be visible");
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(USERNAME_FIELD));
+    }
+
+    private WebElement waitForPassword() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        log.info("Waiting for password element to be visible");
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(PASSWORD_FIELD));
+    }
+
+    private WebElement waitForLoginButton() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        log.info("Waiting for login button to be clickable");
+        return wait.until(ExpectedConditions.elementToBeClickable(LOGIN_BUTTON));
     }
 }
