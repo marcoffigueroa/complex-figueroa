@@ -7,15 +7,19 @@ import java.util.Set;
 import java.util.List;
 import java.time.Duration;
 
+// Adapter pattern: adapts EdgeDriver to the WebDriver interface and centralizes configuration
 public class EdgeDriverAdapter implements WebDriver {
+    // Wrapped EdgeDriver instance
     private final EdgeDriver edgeDriver;
 
+    // Constructor: initializes and configures the EdgeDriver
     public EdgeDriverAdapter() {
         this.edgeDriver = new EdgeDriver();
         this.edgeDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         this.edgeDriver.manage().window().maximize();
     }
 
+    // Delegates all WebDriver methods to the wrapped EdgeDriver
     @Override
     public void get(String url) {
         edgeDriver.get(url);
@@ -81,4 +85,3 @@ public class EdgeDriverAdapter implements WebDriver {
         return edgeDriver.manage();
     }
 }
-

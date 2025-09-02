@@ -11,10 +11,13 @@ import org.apache.logging.log4j.Logger;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
+// Step definitions for login feature scenarios (Cucumber BDD)
 public class LoginSteps {
+    // Page Object for login page
     private LoginPage loginPage;
     private static final Logger log = LogManager.getLogger(LoginSteps.class);
 
+    // Step: Navigate to login page
     @Given("I am on the login page")
     public void navigateToLoginPage() {
         log.info("Navigating to login page");
@@ -23,6 +26,7 @@ public class LoginSteps {
         log.info("Successfully navigated to login page");
     }
 
+    // Step: Enter both username and password (does not click login)
     @When("I enter the username {string} and the password {string}")
     public void performFullLogin(String username, String password) {
         log.info("Typing credentials (without clicking login)");
@@ -30,6 +34,7 @@ public class LoginSteps {
         log.info("Credentials typed");
     }
 
+    // Step: Enter username only
     @When("I enter the username {string}")
     public void sendUsername(String username) {
         log.info("Entering username: {}", username);
@@ -37,6 +42,7 @@ public class LoginSteps {
         log.info("Username entered successfully");
     }
 
+    // Step: Enter password only
     @When("I enter the password {string}")
     public void sendPassword(String password) {
         log.info("Entering password");
@@ -44,6 +50,7 @@ public class LoginSteps {
         log.info("Password entered successfully");
     }
 
+    // Step: Clear username field
     @When("I clear the username field")
     public void clearUsername() {
         log.info("Clearing username field");
@@ -51,6 +58,7 @@ public class LoginSteps {
         log.info("Username field cleared");
     }
 
+    // Step: Clear password field
     @When("I clear the password field")
     public void clearPassword() {
         log.info("Clearing password field");
@@ -58,6 +66,7 @@ public class LoginSteps {
         log.info("Password field cleared");
     }
 
+    // Step: Click the login button
     @When("I click the login button")
     public void clickLoginButton() {
         log.info("Clicking login button");
@@ -65,6 +74,7 @@ public class LoginSteps {
         log.info("Login button clicked");
     }
 
+    // Step: Validate the page title after successful login
     @Then("I should see the title Swag Labs")
     public void validateTitle() {
         log.info("Validating page title - Swag Labs");
@@ -74,6 +84,7 @@ public class LoginSteps {
         log.info("Title validation passed");
     }
 
+    // Step: Validate error message after failed login
     @Then("I should see an error message {string}")
     public void validateError(String errorMessage) {
         log.info("Validating error message: {}", errorMessage);

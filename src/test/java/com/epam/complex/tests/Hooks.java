@@ -7,9 +7,11 @@ import org.openqa.selenium.WebDriver;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+// Cucumber hooks for test setup and teardown
 public class Hooks {
     Logger log = LogManager.getLogger(Hooks.class);
 
+    // Runs before each scenario: sets up the browser
     @Before
     public void setUp()
     {
@@ -18,6 +20,7 @@ public class Hooks {
         log.info("Browser setup completed");
     }
 
+    // Runs after each scenario: closes the browser
     @After
     public void stopBrowser()
     {
@@ -25,6 +28,5 @@ public class Hooks {
         DriverSingleton.closeDriver();
         log.info("Browser teardown completed");
     }
-
 
 }

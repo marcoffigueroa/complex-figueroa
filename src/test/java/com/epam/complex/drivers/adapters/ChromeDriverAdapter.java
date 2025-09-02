@@ -7,15 +7,19 @@ import java.util.Set;
 import java.util.List;
 import java.time.Duration;
 
+// Adapter pattern: adapts ChromeDriver to the WebDriver interface and centralizes configuration
 public class ChromeDriverAdapter implements WebDriver {
+    // Wrapped ChromeDriver instance
     private final ChromeDriver chromeDriver;
 
+    // Constructor: initializes and configures the ChromeDriver
     public ChromeDriverAdapter() {
         this.chromeDriver = new ChromeDriver();
         this.chromeDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         this.chromeDriver.manage().window().maximize();
     }
 
+    // Delegates all WebDriver methods to the wrapped ChromeDriver
     @Override
     public void get(String url) {
         chromeDriver.get(url);
@@ -81,4 +85,3 @@ public class ChromeDriverAdapter implements WebDriver {
         return chromeDriver.manage();
     }
 }
-

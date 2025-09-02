@@ -81,10 +81,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.1.2</version>
-                <configuration>
-                    <testSourceDirectory>${project.basedir}/src/test/java</testSourceDirectory>
-                    <test>${project.basedir}/src/test/java/com/epam/complex/runners/LoginRunner.java</test>
-                </configuration>
             </plugin>
         </plugins>
     </build>
